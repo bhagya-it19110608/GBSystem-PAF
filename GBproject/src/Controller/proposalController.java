@@ -136,7 +136,7 @@ public class proposalController {
 						return "Error while connecting to the database for updating.";
 					}
 					// create a prepared statement
-					String query = "UPDATE proposals SET pname=?,rname=?,catagory=?,duration=?,email=?,phone=?,budget=?,summery=? WHERE pid =?";
+					String query = "UPDATE proposals SET pname=?,rname=?,catagory=?,duration=?,email=?,phone=?,budget=?,summery=?,status=? WHERE pid =?";
 					PreparedStatement preparedStmt = con.prepareStatement(query);
 
 					// binding values
@@ -149,7 +149,8 @@ public class proposalController {
 					preparedStmt.setString(6, pr.getPhone());
 					preparedStmt.setDouble(7, pr.getBudget());
 					preparedStmt.setString(8, pr.getSummery());
-					preparedStmt.setInt(9, pr.getPid());
+					preparedStmt.setString(9, pr.getStatus());
+					preparedStmt.setInt(10, pr.getPid());
 					// execute the statement
 					preparedStmt.execute();
 					con.close();

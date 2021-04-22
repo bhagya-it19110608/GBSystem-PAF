@@ -84,6 +84,7 @@ public class proposalService {
 			pr.setPhone(djosnObj.get("phone").getAsString());
 			pr.setBudget(djosnObj.get("budget").getAsDouble());
 			pr.setSummery(djosnObj.get("summery").getAsString());
+			pr.setStatus(djosnObj.get("status").getAsString());
 			
 			String output = pro.updateProposal(pr);
 			return output;
