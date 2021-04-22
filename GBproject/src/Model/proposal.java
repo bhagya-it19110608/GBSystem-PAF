@@ -10,12 +10,13 @@ public class proposal {
 	String phone;
 	Double budget;
 	String summery;
+	String status;
 	
 	public proposal() {
 	}
 	
 	public proposal(int pid, String rname, String pname, String catagory, String duration, String email, String phone,
-			Double budget, String summery) {
+			Double budget, String summery,String status) {
 		super();
 		this.pid = pid;
 		this.rname = rname;
@@ -26,6 +27,7 @@ public class proposal {
 		this.phone = phone;
 		this.budget = budget;
 		this.summery = summery;
+		this.status = status;
 	}
 
 	public int getPid() {
@@ -99,6 +101,14 @@ public class proposal {
 	public void setSummery(String summery) {
 		this.summery = summery;
 	}
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	
 	
 	
 	

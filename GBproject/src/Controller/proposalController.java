@@ -31,7 +31,7 @@ public class proposalController {
 			}
 			// Prepare the html table to be displayed
 			output = "<table border=\"1\"><tr><th>ProposalID</th>"
-					+ "<th>ProposalName</th><th>ResearcherName</th> "+" <th>Catagory</th> "+"<th>Duration</th> "+" <th>Email</th> "+" <th>Phone</th> "+" <th>Budget</th> "+" <th>Summery</th></tr>";
+					+ "<th>ProposalName</th><th>ResearcherName</th> "+" <th>Catagory</th> "+"<th>Duration</th> "+" <th>Email</th> "+" <th>Phone</th> "+" <th>Budget</th> "+" <th>Summery</th>"+"<th>Status</th></tr>";
 
 			String query = "select * from proposals";
 			Statement stmt = con.createStatement();
@@ -49,6 +49,7 @@ public class proposalController {
 				pr.setPhone(rs.getString("phone"));
 				pr.setBudget(rs.getDouble("budget"));
 				pr.setSummery(rs.getString("summery"));
+				pr.setStatus(rs.getString("status"));
 
 				// Add into the html table
 				output += "<tr><td>" + pr.getPid() + "</td>";
@@ -60,6 +61,7 @@ public class proposalController {
 				output += "<td>" + pr.getPhone()+ "</td>";
 				output += "<td>" + pr.getBudget()+ "</td>";
 				output += "<td>" + pr.getSummery()+ "</td>";
+				output += "<td>" + pr.getStatus()+ "</td>";
 				
 				String pid = null;
 				// buttons
