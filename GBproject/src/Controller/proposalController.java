@@ -83,6 +83,69 @@ public class proposalController {
 	}
 	
 	
+	public String viewProposalsByUserid(String userid) {
+
+		String output = "";
+		
+		proposal  pr = new proposal();
+		
+		try {
+			Connection con = dbObj.connect();
+			if (con == null) {
+				return "Error while connecting to the database for reading.";
+			}
+			// Prepare the html table to be displayedss
+			output = "<table border=\"1\"><tr><th>ProposalID</th>"
+					+ "<th>ProposalName</th><th>ResearcherName</th> "+" <th>Catagory</th> "+"<th>Duration</th> "+" <th>Email</th> "+" <th>Phone</th> "+" <th>Budget</th> "+" <th>Userid</th> "+" <th>Summery</th>"+"<th>Status</th></tr>";
+
+			String query = "select * from proposals WHERE userid=001";
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+
+			// iterate through the rows in the result set
+			while (rs.next()) {
+
+				pr.setPid(rs.getInt("pid"));
+				pr.setPname(rs.getString("pname"));
+				pr.setRname(rs.getString("rname"));
+				pr.setCatagory(rs.getString("catagory"));
+				pr.setDuration(rs.getString("duration"));
+				pr.setEmail(rs.getString("email"));
+				pr.setPhone(rs.getString("phone"));
+				pr.setBudget(rs.getDouble("budget"));
+				pr.setUserid(rs.getString("userid"));
+				pr.setSummery(rs.getString("summery"));
+				pr.setStatus(rs.getString("status"));
+
+				// Add into the html table
+				output += "<tr><td>" + pr.getPid() + "</td>";
+				output += "<td>" + pr.getPname() + "</td>";
+				output += "<td>" + pr.getRname() + "</td>";
+				output += "<td>" + pr.getCatagory() + "</td>";
+				output += "<td>" + pr.getDuration() + "</td>";
+				output += "<td>" + pr.getEmail()+ "</td>";
+				output += "<td>" + pr.getPhone()+ "</td>";
+				output += "<td>" + pr.getBudget()+ "</td>";
+				output += "<td>" + pr.getUserid()+ "</td>";
+				output += "<td>" + pr.getSummery()+ "</td>";
+				output += "<td>" + pr.getStatus()+ "</td>";
+				
+				String pid = null;
+				// buttons
+				 
+			}
+			con.close();
+			// Complete the html table
+			output += "</table>";
+
+		} catch (Exception e) {
+			output = "Error while reading the Proposal Details.";
+			System.err.println(e.getMessage());
+		}
+
+		return output;
+		
+	}
 	
 	
 
@@ -201,6 +264,8 @@ public class proposalController {
 
 				return output;
 			}
+
+
 			
 	
 			

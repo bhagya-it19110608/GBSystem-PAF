@@ -38,7 +38,15 @@ public class proposalService {
 	
 	
 	
-
+	@GET
+	@Path("/{proposalID}") 
+	@Produces(MediaType.TEXT_HTML) 
+	public String readProjectID(@PathParam("userid") String userid) 
+	{ 
+ 	
+		return pro.viewProposalsByUserid(userid);
+	}
+	
 
 	// add types
 	@POST
