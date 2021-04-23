@@ -31,7 +31,7 @@ public class proposalController {
 			}
 			// Prepare the html table to be displayed
 			output = "<table border=\"1\"><tr><th>ProposalID</th>"
-					+ "<th>ProposalName</th><th>ResearcherName</th> "+" <th>Catagory</th> "+"<th>Duration</th> "+" <th>Email</th> "+" <th>Phone</th> "+" <th>Budget</th> "+" <th>Summery</th>"+"<th>Status</th></tr>";
+					+ "<th>ProposalName</th><th>ResearcherName</th> "+" <th>Catagory</th> "+"<th>Duration</th> "+" <th>Email</th> "+" <th>Phone</th> "+" <th>Budget</th> "+" <th>Userid</th> "+" <th>Summery</th>"+"<th>Status</th></tr>";
 
 			String query = "select * from proposals";
 			Statement stmt = con.createStatement();
@@ -48,6 +48,7 @@ public class proposalController {
 				pr.setEmail(rs.getString("email"));
 				pr.setPhone(rs.getString("phone"));
 				pr.setBudget(rs.getDouble("budget"));
+				pr.setUserid(rs.getString("userid"));
 				pr.setSummery(rs.getString("summery"));
 				pr.setStatus(rs.getString("status"));
 
@@ -60,6 +61,7 @@ public class proposalController {
 				output += "<td>" + pr.getEmail()+ "</td>";
 				output += "<td>" + pr.getPhone()+ "</td>";
 				output += "<td>" + pr.getBudget()+ "</td>";
+				output += "<td>" + pr.getUserid()+ "</td>";
 				output += "<td>" + pr.getSummery()+ "</td>";
 				output += "<td>" + pr.getStatus()+ "</td>";
 				
@@ -77,7 +79,10 @@ public class proposalController {
 		}
 
 		return output;
+		
 	}
+	
+	
 	
 	
 
@@ -94,7 +99,7 @@ public class proposalController {
 				}
 
 				// create a prepared statement
-				String query = " INSERT INTO proposals (pname,rname, catagory,duration, email,phone,budget,summery) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+				String query = " INSERT INTO proposals (pname,rname, catagory,duration, email,phone,budget,userid,summery) VALUES (?, ?, ?, ?, ?, ?, ?, ?,?)";
 				PreparedStatement preparedStmt = con.prepareStatement(query);
 
 				// binding values
@@ -105,7 +110,8 @@ public class proposalController {
 				preparedStmt.setString(5, pr.getEmail());
 				preparedStmt.setString(6, pr.getPhone());
 				preparedStmt.setDouble(7, pr.getBudget());
-				preparedStmt.setString(8, pr.getSummery());
+				preparedStmt.setString(8, pr.getUserid());
+				preparedStmt.setString(9, pr.getSummery());
 				
 				
 				// execute the statement
@@ -136,7 +142,7 @@ public class proposalController {
 						return "Error while connecting to the database for updating.";
 					}
 					// create a prepared statement
-					String query = "UPDATE proposals SET pname=?,rname=?,catagory=?,duration=?,email=?,phone=?,budget=?,summery=?,status=? WHERE pid =?";
+					String query = "UPDATE proposals SET pname=?,rname=?,catagory=?,duration=?,email=?,phone=?,budget=?,userid=?, summery=?,status=? WHERE pid =?";
 					PreparedStatement preparedStmt = con.prepareStatement(query);
 
 					// binding values
@@ -148,9 +154,10 @@ public class proposalController {
 					preparedStmt.setString(5, pr.getEmail());
 					preparedStmt.setString(6, pr.getPhone());
 					preparedStmt.setDouble(7, pr.getBudget());
-					preparedStmt.setString(8, pr.getSummery());
-					preparedStmt.setString(9, pr.getStatus());
-					preparedStmt.setInt(10, pr.getPid());
+					preparedStmt.setString(8, pr.getUserid());
+					preparedStmt.setString(9, pr.getSummery());
+					preparedStmt.setString(10, pr.getStatus());
+					preparedStmt.setInt(11, pr.getPid());
 					// execute the statement
 					preparedStmt.execute();
 					con.close();

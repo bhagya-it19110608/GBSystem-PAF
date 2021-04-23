@@ -1,6 +1,8 @@
 package com;
 
 
+
+import javax.websocket.server.PathParam;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 
@@ -25,7 +27,7 @@ public class proposalService {
 	proposalController pro = new proposalController();
 
 	
-	// get all types
+	// get all types for admin
 	
 	@GET
 	@Path("/")
@@ -33,6 +35,9 @@ public class proposalService {
 	public String readAllTypes() {
 		return pro.viewProposals();
 	}
+	
+	
+	
 
 
 	// add types
@@ -53,6 +58,7 @@ public class proposalService {
 		pr.setEmail(djosnObj.get("email").getAsString());
 		pr.setPhone(djosnObj.get("phone").getAsString());
 		pr.setBudget(djosnObj.get("budget").getAsDouble());
+		pr.setUserid(djosnObj.get("userid").getAsString());
 		pr.setSummery(djosnObj.get("summery").getAsString());
 		// Read the values from the JSON object
 	
@@ -83,6 +89,7 @@ public class proposalService {
 			pr.setEmail(djosnObj.get("email").getAsString());
 			pr.setPhone(djosnObj.get("phone").getAsString());
 			pr.setBudget(djosnObj.get("budget").getAsDouble());
+			pr.setUserid(djosnObj.get("userid").getAsString());
 			pr.setSummery(djosnObj.get("summery").getAsString());
 			pr.setStatus(djosnObj.get("status").getAsString());
 			

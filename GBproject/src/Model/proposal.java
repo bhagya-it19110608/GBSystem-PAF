@@ -9,6 +9,7 @@ public class proposal {
 	String email;
 	String phone;
 	Double budget;
+	String userid;
 	String summery;
 	String status;
 	
@@ -16,7 +17,7 @@ public class proposal {
 	}
 	
 	public proposal(int pid, String rname, String pname, String catagory, String duration, String email, String phone,
-			Double budget, String summery,String status) {
+			Double budget,String userid, String summery,String status) {
 		super();
 		this.pid = pid;
 		this.rname = rname;
@@ -26,6 +27,7 @@ public class proposal {
 		this.email = email;
 		this.phone = phone;
 		this.budget = budget;
+		this.userid = userid;
 		this.summery = summery;
 		this.status = status;
 	}
@@ -92,6 +94,13 @@ public class proposal {
 
 	public void setBudget(Double budget) {
 		this.budget = budget;
+	}
+	public String getUserid() {
+		return userid;
+	}
+
+	public void setUserid(String userid) {
+		this.userid = userid;
 	}
 
 	public String getSummery() {
