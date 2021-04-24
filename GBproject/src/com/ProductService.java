@@ -36,6 +36,13 @@ public class ProductService {
 	@Consumes(MediaType.APPLICATION_JSON) 
 	@Produces(MediaType.TEXT_PLAIN)
 	public String enterProducts(String TypeData) {
+		
+		//check validation 
+		
+		try{
+			if(TypeData == null) throw new Exception("Invaild Id");
+
+			else {
 		// Convert the input string to a JSON object
 		JsonObject djosnObj = new JsonParser().parse(TypeData).getAsJsonObject();
 	
@@ -50,8 +57,13 @@ public class ProductService {
 		// Read the values from the JSON object
 		String output = pc.addProduct(r);
 		return output;
-
+			}
+		}catch (Exception e){
+			return "<p> Somethings went wrong <br/> ERROR -  "+ e.toString() +" </p>";
+		}
 	}
+
+
 
 	
 	
@@ -63,6 +75,12 @@ public class ProductService {
 	@Produces(MediaType.TEXT_PLAIN)
 	public String updateProducts(String TypeData) {
 
+		//check validation 
+		
+		try{
+			if(TypeData == null) throw new Exception("Invaild Id");
+
+			else {
 		// Convert the input string to a JSON object
 		JsonObject djosnObj = new JsonParser().parse(TypeData).getAsJsonObject();
 		Product r = new Product();
@@ -75,7 +93,10 @@ public class ProductService {
 					
 		String output = pc.updateProduct(r);
 		return output;
-		
+			}
+		}catch (Exception e){
+			return "<p> Somethings went wrong <br/> ERROR -  "+ e.toString() +" </p>";
+		}
 	}
 	
 
@@ -86,6 +107,13 @@ public class ProductService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN)
 	public String deleteUsers(String TypeData) {
+		
+		//check validation 
+		
+		try{
+			if(TypeData == null) throw new Exception("Invaild Id");
+
+			else {
 		// Convert the input string to a JSON object
 		JsonObject doc = new JsonParser().parse(TypeData).getAsJsonObject();
 
@@ -96,7 +124,9 @@ public class ProductService {
 			
 		String output = pc.deleteProduct(r);
 		return output;
-		
+			}
+		}catch (Exception e){
+			return "<p> Somethings went wrong <br/> ERROR -  "+ e.toString() +" </p>";
+		}
 	}
-	
 }

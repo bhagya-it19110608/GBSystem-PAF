@@ -57,7 +57,7 @@ public class ProductController {
 			output += "</table>";
 
 		} catch (Exception e) {
-			output = "Error while reading the User Details.";
+			output = "Error while reading the Product Details.";
 			System.err.println(e.getMessage());
 		}
 
