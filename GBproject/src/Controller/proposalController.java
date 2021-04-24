@@ -48,7 +48,7 @@ public class proposalController {
 				pr.setEmail(rs.getString("email"));
 				pr.setPhone(rs.getString("phone"));
 				pr.setBudget(rs.getDouble("budget"));
-				pr.setUserid(rs.getString("userid"));
+				pr.setUserid(rs.getInt("userid"));
 				pr.setSummery(rs.getString("summery"));
 				pr.setStatus(rs.getString("status"));
 
@@ -82,8 +82,7 @@ public class proposalController {
 		
 	}
 	
-	
-	public String viewProposalsByUserid(String userid) {
+	public String viewProposalById(int uid) {
 
 		String output = "";
 		
@@ -94,11 +93,11 @@ public class proposalController {
 			if (con == null) {
 				return "Error while connecting to the database for reading.";
 			}
-			// Prepare the html table to be displayedss
+			// Prepare the html table to be displayed
 			output = "<table border=\"1\"><tr><th>ProposalID</th>"
-					+ "<th>ProposalName</th><th>ResearcherName</th> "+" <th>Catagory</th> "+"<th>Duration</th> "+" <th>Email</th> "+" <th>Phone</th> "+" <th>Budget</th> "+" <th>Userid</th> "+" <th>Summery</th>"+"<th>Status</th></tr>";
+					+ "<th>ProposalName</th><th>ResearcherName</th> "+" <th>Catagory</th> "+"<th>Duration</th> "+" <th>Email</th> "+" <th>Phone</th> "+" <th>Budget</th> "+" <th>Summery</th>"+"<th>Status</th></tr>";
 
-			String query = "select * from proposals WHERE userid=001";
+			String query = "select * from proposals where userid = '"+uid+"'";
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 
@@ -113,7 +112,6 @@ public class proposalController {
 				pr.setEmail(rs.getString("email"));
 				pr.setPhone(rs.getString("phone"));
 				pr.setBudget(rs.getDouble("budget"));
-				pr.setUserid(rs.getString("userid"));
 				pr.setSummery(rs.getString("summery"));
 				pr.setStatus(rs.getString("status"));
 
@@ -126,26 +124,22 @@ public class proposalController {
 				output += "<td>" + pr.getEmail()+ "</td>";
 				output += "<td>" + pr.getPhone()+ "</td>";
 				output += "<td>" + pr.getBudget()+ "</td>";
-				output += "<td>" + pr.getUserid()+ "</td>";
 				output += "<td>" + pr.getSummery()+ "</td>";
 				output += "<td>" + pr.getStatus()+ "</td>";
 				
-				String pid = null;
-				// buttons
-				 
 			}
 			con.close();
 			// Complete the html table
 			output += "</table>";
 
 		} catch (Exception e) {
-			output = "Error while reading the Proposal Details.";
+			output = "Error while reading the Cart Details.";
 			System.err.println(e.getMessage());
 		}
 
 		return output;
-		
 	}
+
 	
 	
 
@@ -173,7 +167,7 @@ public class proposalController {
 				preparedStmt.setString(5, pr.getEmail());
 				preparedStmt.setString(6, pr.getPhone());
 				preparedStmt.setDouble(7, pr.getBudget());
-				preparedStmt.setString(8, pr.getUserid());
+				preparedStmt.setInt(8, pr.getUserid());
 				preparedStmt.setString(9, pr.getSummery());
 				
 				
@@ -217,7 +211,7 @@ public class proposalController {
 					preparedStmt.setString(5, pr.getEmail());
 					preparedStmt.setString(6, pr.getPhone());
 					preparedStmt.setDouble(7, pr.getBudget());
-					preparedStmt.setString(8, pr.getUserid());
+					preparedStmt.setInt(8, pr.getUserid());
 					preparedStmt.setString(9, pr.getSummery());
 					preparedStmt.setString(10, pr.getStatus());
 					preparedStmt.setInt(11, pr.getPid());

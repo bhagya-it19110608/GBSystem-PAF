@@ -2,7 +2,7 @@ package com;
 
 
 
-import javax.websocket.server.PathParam;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 
@@ -10,6 +10,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
@@ -39,12 +40,10 @@ public class proposalService {
 	
 	
 	@GET
-	@Path("/{proposalID}") 
-	@Produces(MediaType.TEXT_HTML) 
-	public String readProjectID(@PathParam("userid") String userid) 
-	{ 
- 	
-		return pro.viewProposalsByUserid(userid);
+	@Path("/{userid}")
+	@Produces(MediaType.TEXT_HTML)
+	public String readByIdFromProposal(@PathParam("userid") int uid) {
+		return pro.viewProposalById(uid);
 	}
 	
 
@@ -66,7 +65,7 @@ public class proposalService {
 		pr.setEmail(djosnObj.get("email").getAsString());
 		pr.setPhone(djosnObj.get("phone").getAsString());
 		pr.setBudget(djosnObj.get("budget").getAsDouble());
-		pr.setUserid(djosnObj.get("userid").getAsString());
+		pr.setUserid(djosnObj.get("userid").getAsInt());
 		pr.setSummery(djosnObj.get("summery").getAsString());
 		// Read the values from the JSON object
 	
@@ -97,7 +96,7 @@ public class proposalService {
 			pr.setEmail(djosnObj.get("email").getAsString());
 			pr.setPhone(djosnObj.get("phone").getAsString());
 			pr.setBudget(djosnObj.get("budget").getAsDouble());
-			pr.setUserid(djosnObj.get("userid").getAsString());
+			pr.setUserid(djosnObj.get("userid").getAsInt());
 			pr.setSummery(djosnObj.get("summery").getAsString());
 			pr.setStatus(djosnObj.get("status").getAsString());
 			
