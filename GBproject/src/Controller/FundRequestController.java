@@ -69,6 +69,61 @@ public class FundRequestController {
 	}
 	
 	
+	public String viewRequstedFundsByID(String reasercherID) {
+		
+		String output = "";
+		
+		FundRequest  f = new FundRequest();
+		
+		try {
+			Connection con = dbObj.connect();
+			if (con == null) {
+				return "Error while connecting to the database for reading.";
+		}
+			
+		// Prepare the html table 
+		output = "<table border=\"1\"><tr><th>ID</th>" + "<th>Reasercher ID</th>"
+					+ "<th>Name</th><th>Email</th> "+" <th>Phone</th> "+" <th>Reaserch Name</th> "+"<th>Requesting Fund Amount</th></tr>";
+
+		String query = "select * from fundrequest where reasercherID = '"+reasercherID+"'";
+		Statement stmt = con.createStatement();
+		ResultSet rs = stmt.executeQuery(query);
+
+		// iterate through the rows in the result set
+		while (rs.next()) {
+
+			f.setId(rs.getInt("id"));
+			f.setReasercherID(rs.getString("reasercherID"));
+			f.setName(rs.getString("name"));
+			f.setEmail(rs.getString("email"));
+			f.setPhone(rs.getString("phone"));
+			f.setReaserchName(rs.getString("reaserchName"));
+			f.setRequestingAmount(rs.getDouble("requestingAmount"));
+			
+			// Add into the html table
+			output += "<tr><td>" + f.getId() + "</td>";
+			output += "<td>" + f.getReasercherID() + "</td>";
+			output += "<td>" + f.getName() + "</td>";
+			output += "<td>" + f.getEmail() + "</td>";
+			output += "<td>" + f.getPhone() + "</td>";
+			output += "<td>" + f.getReaserchName() + "</td>";
+			output += "<td>" + f.getRequestingAmount()+ "</td>";
+				
+			}
+		
+			con.close();
+			
+			// Complete the html table
+			output += "</table>";
+
+		} catch (Exception e) {
+			output = "Error while reading the Fund Details.";
+			System.err.println(e.getMessage());
+		}
+
+		return output;
+	}
+	
 	public String addFundRequest(FundRequest f) {
 		
 		String output = "";
