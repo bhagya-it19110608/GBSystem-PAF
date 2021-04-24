@@ -51,7 +51,7 @@ public class UserService {
 		u.setpassword(djosnObj.get("password").getAsString());
 		
 		// Read the values from the JSON object
-		String output = us.addUser(u);
+		String output = us.registerUser(u);
 		return output;
 
 	}

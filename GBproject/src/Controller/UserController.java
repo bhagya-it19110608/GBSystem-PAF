@@ -2,6 +2,7 @@
 package Controller;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -77,7 +78,7 @@ public class UserController {
 
 	
 	//insert	
-	public String addUser(User u) {
+	public String registerUser(User u) {
 
 		String output = "";
 			
@@ -106,16 +107,17 @@ public class UserController {
 			// execute the statement
 			preparedStmt.execute();
 			con.close();
-			output = "Inserted a new User record successfully";
+			output = "Registered Successfully";
 
 			} catch (Exception e) {
-				output = "Error while inserting";
+				output = "Error in registation process";
 				System.err.println(e.getMessage());
 			}
 
 			return output;
 		}
 	
+		
 
 		//update
 		public String updateUser(User u) {
