@@ -30,7 +30,7 @@ public class UserService {
 	}
 
 
-	//add
+	//register
 	@POST
 	@Path("/")
 	@Consumes(MediaType.APPLICATION_JSON) 
@@ -55,8 +55,25 @@ public class UserService {
 		return output;
 
 	}
-
+	//login
 	
+		@POST
+		@Path("/login")
+		@Consumes(MediaType.APPLICATION_JSON)
+		@Produces(MediaType.TEXT_PLAIN)
+		public String loginUsers(String TypeData) {
+			// Convert the input string to a JSON object
+			JsonObject doc = new JsonParser().parse(TypeData).getAsJsonObject();
+
+			User u = new User();
+				
+			// Read the value from the element <ID>
+			u.setusername(doc.get("username").getAsString());
+			
+			String output = us.loginUser(u);
+			return output;
+			
+		}
 	
 	
 	//update

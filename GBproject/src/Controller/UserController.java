@@ -2,7 +2,7 @@
 package Controller;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -117,8 +117,44 @@ public class UserController {
 			return output;
 		}
 	
+		//login
+	public String loginUser(User u) {
 		
+		String output = "";
+		
+		try {
 
+			Connection con = dbObj.connect();
+			
+			if (con == null) {
+				return "Error while connecting to the database for login.";
+			}
+
+			// create a prepared statement
+			String query = "SELECT password FROM users WHERE username=?";
+			PreparedStatement preparedStmt = con.prepareStatement(query);
+
+			// binding values
+			 preparedStmt.setString(1, u.getusername());
+			
+			// execute the statement
+			preparedStmt.execute();
+			con.close();
+			output = "Logged successfully [ User Name : "+u.getusername()+" ]";
+
+		} catch (Exception e) {
+
+			output = "Error while login the  User Name :" + u.getusername();
+			System.err.println(e.getMessage());
+		}
+
+		return output;
+	}
+	
+	
+
+
+	
 		//update
 		public String updateUser(User u) {
 
