@@ -118,43 +118,50 @@ public class UserController {
 		}
 	
 		//login
-	public String loginUser(User u) {
 		
-		String output = "";
-		
-		try {
+		public String loginUser(User u) {
 
-			Connection con = dbObj.connect();
+			String output = "";
 			
-			if (con == null) {
-				return "Error while connecting to the database for login.";
+			User auth = new User();
+			
+			try {
+				Connection con = dbObj.connect();
+				if (con == null) {
+					return "Error while connecting to the database for reading.";
+				}
+				
+				
+
+				String query = "select * from users WHERE username = '"+u.getusername()+"' " ;
+				Statement stmt = con.createStatement();
+				ResultSet rs = stmt.executeQuery(query);
+
+				// iterate through the rows in the result set
+				while (rs.next()) {
+					
+					auth.setpassword(rs.getString("password"));
+					
+				}
+				con.close();
+				if(u.getpassword().equals(auth.getpassword()))
+				{
+					
+					output = "login succesfull";
+				}
+				else {
+					output = "login unsuccesfull";
+				}
+				
+				
+			} catch (Exception e) {
+				output = "Error while reading the userTypes Details.";
+				System.err.println(e.getMessage());
 			}
 
-			// create a prepared statement
-			String query = "SELECT password FROM users WHERE username=?";
-			PreparedStatement preparedStmt = con.prepareStatement(query);
-
-			// binding values
-			 preparedStmt.setString(1, u.getusername());
-			
-			// execute the statement
-			preparedStmt.execute();
-			con.close();
-			output = "Logged successfully [ User Name : "+u.getusername()+" ]";
-
-		} catch (Exception e) {
-
-			output = "Error while login the  User Name :" + u.getusername();
-			System.err.println(e.getMessage());
+			return output;
 		}
-
-		return output;
-	}
-	
-	
-
-
-	
+		
 		//update
 		public String updateUser(User u) {
 
