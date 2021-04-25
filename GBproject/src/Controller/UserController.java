@@ -239,5 +239,65 @@ public class UserController {
 				return output;
 			}
 			
+			//viewById
+			public String viewUsersByID(int uId) {
+
+				String output = "";
+				
+				User  u = new User();
+				
+				try { 
+					Connection con = dbObj.connect();
+					if (con == null) {
+						return "Error while connecting to the database for reading.";
+				}
+					
+				// Prepare the html table 
+				output = "<table border=\"1\"><tr><th>User Id</th>"
+							+ "<th>First Name</th><th>Last Name</th> "+" <th>Email</th> "+" <th>Gender</th> "+" <th>Occupation</th> "+" <th>Phone</th> "+" <th>Username</th> "+" <th>Password</th> </tr>";
+
+				String query = "select * from users where uId = '"+uId+"'";
+				Statement stmt = con.createStatement();
+				ResultSet rs = stmt.executeQuery(query);
+
+				// iterate through the rows in the result set
+				while (rs.next()) {
+
+					u.setuId(rs.getInt("uId"));
+					u.setfirstName(rs.getString("firstName"));
+					u.setlastName(rs.getString("lastName"));
+					u.setemail(rs.getString("email"));
+					u.setgender(rs.getString("gender"));
+					u.setoccupation(rs.getString("occupation"));
+					u.setphone(rs.getString("phone"));
+					u.setusername(rs.getString("username"));
+					u.setpassword(rs.getString("password"));
+					
+					// Add into the html table
+					output += "<tr><td>" + u.getuId() + "</td>";
+					output += "<td>" + u.getfirstName() + "</td>";
+					output += "<td>" + u.getlastName() + "</td>";
+					output += "<td>" + u.getemail() + "</td>";
+					output += "<td>" + u.getgender() + "</td>";
+					output += "<td>" + u.getoccupation()+ "</td>";
+					output += "<td>" + u.getphone()+ "</td>";
+					output += "<td>" + u.getusername()+ "</td>";
+					output += "<td>" + u.getpassword()+ "</td>";
+						
+					}
+				
+					con.close();
+					
+					// Complete the html table
+					output += "</table>";
+
+				} catch (Exception e) {
+					output = "Error while reading the User Details.";
+					System.err.println(e.getMessage());
+				}
+
+				return output;
+			}
+			
 			
 }

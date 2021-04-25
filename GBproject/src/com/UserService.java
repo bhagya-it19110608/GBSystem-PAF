@@ -8,6 +8,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.PathParam;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -108,7 +109,6 @@ public class UserService {
 	
 
 	//delete
-		
 	@DELETE
 	@Path("/")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -126,5 +126,13 @@ public class UserService {
 		return output;
 		
 	}
+	
+	//filter
+	@GET
+	@Path("/{uId}")
+	@Produces(MediaType.TEXT_HTML)
+	public String viewUsersByID(@PathParam("uId")int uId) {
+	return us.viewUsersByID(uId);
+		}
 	
 }
