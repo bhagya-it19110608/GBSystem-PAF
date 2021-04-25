@@ -182,4 +182,59 @@ public class FundController {
 			}
 			
 			
+			//view by fund id
+			public String viewFundsById(int idfund) {
+				
+				String output = "";
+				
+				Fund  f = new Fund();
+				
+				try {
+					Connection con = dbObj.connect();
+					if (con == null) {
+						return "Error while connecting to the database for reading.";
+				}
+					
+				// Prepare the html table 
+				output = "<table border=\"1\"><tr><th>Fund ID</th>"
+							+ "<th>Project ID</th><th>Reasercher ID</th> "+" <th>Client ID</th> "+" <th>Fund Amount</th> "+"<th>Status</th></tr>";
+
+				String query = "select * from fund where idfund = '"+idfund+"'";
+				Statement stmt = con.createStatement();
+				ResultSet rs = stmt.executeQuery(query);
+
+				// iterate through the rows in the result set
+				while (rs.next()) {
+
+					f.setIdfund(rs.getInt("idfund"));
+					f.setProjectID(rs.getString("projectID"));
+					f.setReasercherID(rs.getString("reasercherID"));
+					f.setClientID(rs.getString("clientID"));
+					f.setFundAmount(rs.getDouble("fundAmount"));
+					f.setStatus(rs.getString("status"));
+					
+					// Add into the html table
+					output += "<tr><td>" + f.getIdfund() + "</td>";
+					output += "<td>" + f.getProjectID() + "</td>";
+					output += "<td>" + f.getReasercherID() + "</td>";
+					output += "<td>" + f.getClientID() + "</td>";
+					output += "<td>" + f.getFundAmount() + "</td>";
+					output += "<td>" + f.getStatus()+ "</td>";
+						
+					}
+				
+					con.close();
+					
+					// Complete the html table
+					output += "</table>";
+
+				} catch (Exception e) {
+					output = "Error while reading the Fund Details.";
+					System.err.println(e.getMessage());
+				}
+
+				return output; 
+			}
+			
+			
 }
