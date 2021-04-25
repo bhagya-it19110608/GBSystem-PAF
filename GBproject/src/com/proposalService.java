@@ -53,24 +53,32 @@ public class proposalService {
 	@Consumes(MediaType.APPLICATION_JSON) 
 	@Produces(MediaType.TEXT_PLAIN)
 	public String enterType(String TypeData) {
-		// Convert the input string to a JSON object
-		JsonObject djosnObj = new JsonParser().parse(TypeData).getAsJsonObject();
-	
-		proposal pr = new proposal();
+		try {
+			if(TypeData == null) throw new Exception("Invaild data type");
+			else {
+				// Convert the input string to a JSON object
+				JsonObject djosnObj = new JsonParser().parse(TypeData).getAsJsonObject();
+			
+				proposal pr = new proposal();
+				
+				pr.setPname(djosnObj.get("pname").getAsString());
+				pr.setRname(djosnObj.get("rname").getAsString());
+				pr.setCatagory(djosnObj.get("catagory").getAsString());
+				pr.setDuration(djosnObj.get("duration").getAsString());
+				pr.setEmail(djosnObj.get("email").getAsString());
+				pr.setPhone(djosnObj.get("phone").getAsString());
+				pr.setBudget(djosnObj.get("budget").getAsDouble());
+				pr.setUserid(djosnObj.get("userid").getAsInt());
+				pr.setSummery(djosnObj.get("summery").getAsString());
+				// Read the values from the JSON object
+			
+				String output = pro.addProposals(pr);
+				return output;
+			}
+		}catch(Exception e) {
+			return "<p> Somethings went wrong <br/> ERROR -  "+ e.toString() +" </p>";
+		}
 		
-		pr.setPname(djosnObj.get("pname").getAsString());
-		pr.setRname(djosnObj.get("rname").getAsString());
-		pr.setCatagory(djosnObj.get("catagory").getAsString());
-		pr.setDuration(djosnObj.get("duration").getAsString());
-		pr.setEmail(djosnObj.get("email").getAsString());
-		pr.setPhone(djosnObj.get("phone").getAsString());
-		pr.setBudget(djosnObj.get("budget").getAsDouble());
-		pr.setUserid(djosnObj.get("userid").getAsInt());
-		pr.setSummery(djosnObj.get("summery").getAsString());
-		// Read the values from the JSON object
-	
-		String output = pro.addProposals(pr);
-		return output;
 
 	}
 
@@ -83,25 +91,32 @@ public class proposalService {
 		@Consumes(MediaType.APPLICATION_JSON)
 		@Produces(MediaType.TEXT_PLAIN)
 		public String updateAppType(String TypeData) {
+			try {
+				if( TypeData == null ) throw  new Exception("Invalid data type");
+				
+				// Convert the input string to a JSON object
+				JsonObject djosnObj = new JsonParser().parse(TypeData).getAsJsonObject();
+				proposal pr = new proposal();
 
-			// Convert the input string to a JSON object
-			JsonObject djosnObj = new JsonParser().parse(TypeData).getAsJsonObject();
-			proposal pr = new proposal();
+				pr.setPid(djosnObj.get("pid").getAsInt());
+				pr.setPname(djosnObj.get("pname").getAsString());
+				pr.setRname(djosnObj.get("rname").getAsString());
+				pr.setCatagory(djosnObj.get("catagory").getAsString());
+				pr.setDuration(djosnObj.get("duration").getAsString());
+				pr.setEmail(djosnObj.get("email").getAsString());
+				pr.setPhone(djosnObj.get("phone").getAsString());
+				pr.setBudget(djosnObj.get("budget").getAsDouble());
+				pr.setUserid(djosnObj.get("userid").getAsInt());
+				pr.setSummery(djosnObj.get("summery").getAsString());
+				pr.setStatus(djosnObj.get("status").getAsString());
+				
+				String output = pro.updateProposal(pr);
+				return output;
+			}catch(Exception e) {
+				return "<p> Somethings went wrong <br> ERROR - "+e.toString()+" </p>";
+			}
 
-			pr.setPid(djosnObj.get("pid").getAsInt());
-			pr.setPname(djosnObj.get("pname").getAsString());
-			pr.setRname(djosnObj.get("rname").getAsString());
-			pr.setCatagory(djosnObj.get("catagory").getAsString());
-			pr.setDuration(djosnObj.get("duration").getAsString());
-			pr.setEmail(djosnObj.get("email").getAsString());
-			pr.setPhone(djosnObj.get("phone").getAsString());
-			pr.setBudget(djosnObj.get("budget").getAsDouble());
-			pr.setUserid(djosnObj.get("userid").getAsInt());
-			pr.setSummery(djosnObj.get("summery").getAsString());
-			pr.setStatus(djosnObj.get("status").getAsString());
 			
-			String output = pro.updateProposal(pr);
-			return output;
 		}
 	
 	
@@ -115,17 +130,23 @@ public class proposalService {
 		@Consumes(MediaType.APPLICATION_JSON)
 		@Produces(MediaType.TEXT_PLAIN)
 		public String deletetype(String TypeData) {
-			// Convert the input string to a JSON object
-			JsonObject doc = new JsonParser().parse(TypeData).getAsJsonObject();
+			try {
+				if(TypeData == null ) throw new Exception("Invalid Id");
+				// Convert the input string to a JSON object
+				JsonObject doc = new JsonParser().parse(TypeData).getAsJsonObject();
 
-//			JsonObject djosnObj = new JsonParser().parse(TypeData).getAsJsonObject();
-			proposal pr = new proposal();
+//				JsonObject djosnObj = new JsonParser().parse(TypeData).getAsJsonObject();
+				proposal pr = new proposal();
+				
+				// Read the value from the element <ID>
+		    	pr.setPid(doc.get("pid").getAsInt());
+				//String id = doc.get("appointment_Id").getAsString();
+				String output = pro.deleteProposals(pr);
+				return output;
+			}catch(Exception e) {
+				return "<p> Somethings went wrong <br> ERROR - "+e.toString()+ " </p>";
+			}
 			
-			// Read the value from the element <ID>
-	    	pr.setPid(doc.get("pid").getAsInt());
-			//String id = doc.get("appointment_Id").getAsString();
-			String output = pro.deleteProposals(pr);
-			return output;
 		}
 	
 }
