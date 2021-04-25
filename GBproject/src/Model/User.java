@@ -8,14 +8,14 @@ public class User {
 	String email;
 	String gender;
 	String occupation;
-	String phone;
+	int phone;
 	String username;
 	String password;
 		
 	public User() {
 	}
 
-	public User(int uId, String firstName, String lastName, String email, String gender, String occupation, String phone, String username, String password ) {
+	public User(int uId, String firstName, String lastName, String email, String gender, String occupation, int phone, String username, String password ) {
 		super();
 		this.uId = uId;
 		this.firstName = firstName;
@@ -74,11 +74,11 @@ public class User {
 		this.occupation = occupation;
 	}
 	
-	public String getphone() {
+	public int getphone() {
 		return phone;
 	}
 
-	public void setphone(String phone) {
+	public void setphone(int phone) {
 		this.phone = phone;
 	}
 	

@@ -44,7 +44,7 @@ public class UserController {
 			u.setemail(rs.getString("email"));
 			u.setgender(rs.getString("gender"));
 			u.setoccupation(rs.getString("occupation"));
-			u.setphone(rs.getString("phone"));
+			u.setphone(rs.getInt("phone"));
 			u.setusername(rs.getString("username"));
 			u.setpassword(rs.getString("password"));
 			
@@ -100,7 +100,7 @@ public class UserController {
 			preparedStmt.setString(3, u.getemail());
 			preparedStmt.setString(4, u.getgender());
 			preparedStmt.setString(5, u.getoccupation());
-			preparedStmt.setString(6, u.getphone());
+			preparedStmt.setInt(6, u.getphone());
 			preparedStmt.setString(7, u.getusername());
 			preparedStmt.setString(8, u.getpassword());
 				
@@ -185,7 +185,7 @@ public class UserController {
 				preparedStmt.setString(3, u.getemail());
 				preparedStmt.setString(4, u.getgender());
 				preparedStmt.setString(5, u.getoccupation());
-				preparedStmt.setString(6, u.getphone());
+				preparedStmt.setInt(6, u.getphone());
 				preparedStmt.setString(7, u.getusername());
 				preparedStmt.setString(8, u.getpassword());
 				preparedStmt.setInt(9, u.getuId());
@@ -269,7 +269,7 @@ public class UserController {
 					u.setemail(rs.getString("email"));
 					u.setgender(rs.getString("gender"));
 					u.setoccupation(rs.getString("occupation"));
-					u.setphone(rs.getString("phone"));
+					u.setphone(rs.getInt("phone"));
 					u.setusername(rs.getString("username"));
 					u.setpassword(rs.getString("password"));
 					
