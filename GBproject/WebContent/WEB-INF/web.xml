@@ -12,6 +12,15 @@
 	</servlet-mapping>
 	
 
+	
+	<servlet-mapping>
+		<servlet-name>Jersey Web Application</servlet-name>
+		<url-pattern>/UserService/*</url-pattern>
+	</servlet-mapping>
+	
+	
+
+
 	<servlet-mapping>
 		<servlet-name>Jersey Web Application</servlet-name>
 		<url-pattern>/proposalService/*</url-pattern>
