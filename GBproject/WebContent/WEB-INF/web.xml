@@ -8,6 +8,11 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>Jersey Web Application</servlet-name>
+		<url-pattern>/ProductService/*</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>Jersey Web Application</servlet-name>
 		<url-pattern>/FundService/*</url-pattern>
 	</servlet-mapping>
 	
