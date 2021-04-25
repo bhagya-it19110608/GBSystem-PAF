@@ -12,8 +12,13 @@
 	</servlet-mapping>
 	
 
+
 	
 	<servlet-mapping>
+		<servlet-name>Jersey Web Application</servlet-name>
+		<url-pattern>/OrderService/*</url-pattern>
+	<servlet-mapping>
+    
 		<servlet-name>Jersey Web Application</servlet-name>
 		<url-pattern>/UserService/*</url-pattern>
 	</servlet-mapping>
@@ -30,6 +35,7 @@
 	<servlet-mapping>
 		<servlet-name>Jersey Web Application</servlet-name>
 		<url-pattern>/FundRequestService/*</url-pattern>
+
 	</servlet-mapping>
 	
   <welcome-file-list>
