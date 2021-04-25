@@ -44,20 +44,29 @@ public class FundService {
 	@Consumes(MediaType.APPLICATION_JSON) 
 	@Produces(MediaType.TEXT_PLAIN)
 	public String enterFunds(String TypeData) {
-		// Convert the input string to a JSON object
-		JsonObject djosnObj = new JsonParser().parse(TypeData).getAsJsonObject();
-	
-		Fund f = new Fund();
 		
-		f.setProjectID(djosnObj.get("projectID").getAsString());
-		f.setReasercherID(djosnObj.get("reasercherID").getAsString());
-		f.setClientID(djosnObj.get("clientID").getAsString());
-		f.setFundAmount(djosnObj.get("fundAmount").getAsDouble());
-		f.setStatus(djosnObj.get("status").getAsString());
+		try {
+			if(TypeData == null) throw new Exception("Invaild data type");
+			else {
+				// Convert the input string to a JSON object
+				JsonObject djosnObj = new JsonParser().parse(TypeData).getAsJsonObject();
+			
+				Fund f = new Fund();
+				
+				f.setProjectID(djosnObj.get("projectID").getAsString());
+				f.setReasercherID(djosnObj.get("reasercherID").getAsString());
+				f.setClientID(djosnObj.get("clientID").getAsString());
+				f.setFundAmount(djosnObj.get("fundAmount").getAsDouble());
+				f.setStatus(djosnObj.get("status").getAsString());
+				
+				// Read the values from the JSON object
+				String output = fd.addFund(f);
+				return output;
+			}
+		}catch(Exception e) {
+			return "<p> Somethings went wrong <br/> ERROR -  "+ e.toString() +" </p>";
+		}
 		
-		// Read the values from the JSON object
-		String output = fd.addFund(f);
-		return output;
 
 	}
 
@@ -71,20 +80,28 @@ public class FundService {
 	@Produces(MediaType.TEXT_PLAIN)
 	public String updateFunds(String TypeData) {
 
-		// Convert the input string to a JSON object
-		JsonObject djosnObj = new JsonParser().parse(TypeData).getAsJsonObject();
-		Fund f = new Fund();
+		try {
+			if( TypeData == null ) throw  new Exception("Invalid data type");
+			
+			// Convert the input string to a JSON object
+			JsonObject djosnObj = new JsonParser().parse(TypeData).getAsJsonObject();
+			Fund f = new Fund();
 
-		f.setIdfund(djosnObj.get("idfund").getAsInt());
-		f.setProjectID(djosnObj.get("projectID").getAsString());
-		f.setReasercherID(djosnObj.get("reasercherID").getAsString());
-		f.setClientID(djosnObj.get("clientID").getAsString());
-		f.setFundAmount(djosnObj.get("fundAmount").getAsDouble());
-		f.setStatus(djosnObj.get("status").getAsString());
+			f.setIdfund(djosnObj.get("idfund").getAsInt());
+			f.setProjectID(djosnObj.get("projectID").getAsString());
+			f.setReasercherID(djosnObj.get("reasercherID").getAsString());
+			f.setClientID(djosnObj.get("clientID").getAsString());
+			f.setFundAmount(djosnObj.get("fundAmount").getAsDouble());
+			f.setStatus(djosnObj.get("status").getAsString());
+				
+				
+			String output = fd.updateFund(f);
+			return output;
 			
-			
-		String output = fd.updateFund(f);
-		return output;
+		}catch(Exception e) {
+			return "<p> Somethings went wrong <br> ERROR - "+e.toString()+" </p>";
+		}
+		
 		
 	}
 	
@@ -96,16 +113,22 @@ public class FundService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN)
 	public String deleteFunds(String TypeData) {
-		// Convert the input string to a JSON object
-		JsonObject doc = new JsonParser().parse(TypeData).getAsJsonObject();
+		try {
+			if(TypeData == null ) throw new Exception("Invalid Id");
+			// Convert the input string to a JSON object
+			JsonObject doc = new JsonParser().parse(TypeData).getAsJsonObject();
 
-		Fund f = new Fund();
-			
-		// Read the value from the element <ID>
-	   	f.setIdfund(doc.get("idfund").getAsInt());
-			
-		String output = fd.deleteFund(f);
-		return output;
+			Fund f = new Fund();
+				
+			// Read the value from the element <ID>
+		   	f.setIdfund(doc.get("idfund").getAsInt());
+				
+			String output = fd.deleteFund(f);
+			return output;
+		}catch(Exception e) {
+			return "<p> Somethings went wrong <br> ERROR - "+e.toString()+ " </p>";
+		}
+		
 		
 	}
 	

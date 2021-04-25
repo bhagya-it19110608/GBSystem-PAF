@@ -42,21 +42,29 @@ public class FundRequestService {
 	@Consumes(MediaType.APPLICATION_JSON) 
 	@Produces(MediaType.TEXT_PLAIN)
 	public String enterFundRequest(String TypeData) {
-		// Convert the input string to a JSON object
-		JsonObject djosnObj = new JsonParser().parse(TypeData).getAsJsonObject();
+		try {
+			if(TypeData == null) throw new Exception("Invalid data type");
+			else {
+				// Convert the input string to a JSON object
+				JsonObject djosnObj = new JsonParser().parse(TypeData).getAsJsonObject();
+				
+				FundRequest f = new FundRequest();
+					
+				f.setReasercherID(djosnObj.get("reasercherID").getAsString());
+				f.setName(djosnObj.get("name").getAsString());
+				f.setEmail(djosnObj.get("email").getAsString());
+				f.setPhone(djosnObj.get("phone").getAsString());
+				f.setReaserchName(djosnObj.get("reaserchName").getAsString());
+				f.setRequestingAmount(djosnObj.get("requestingAmount").getAsDouble());
+				
+				// Read the values from the JSON object
+				String output = fd.addFundRequest(f);
+					return output;
+			}
+		}catch(Exception e) {
+			return "<p> Somethings went wrong <br/> ERROR -  "+ e.toString() +" </p>";
+		}
 		
-		FundRequest f = new FundRequest();
-			
-		f.setReasercherID(djosnObj.get("reasercherID").getAsString());
-		f.setName(djosnObj.get("name").getAsString());
-		f.setEmail(djosnObj.get("email").getAsString());
-		f.setPhone(djosnObj.get("phone").getAsString());
-		f.setReaserchName(djosnObj.get("reaserchName").getAsString());
-		f.setRequestingAmount(djosnObj.get("requestingAmount").getAsDouble());
-		
-		// Read the values from the JSON object
-		String output = fd.addFundRequest(f);
-			return output;
 
 		}
 }
